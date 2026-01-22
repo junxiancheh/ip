@@ -82,6 +82,17 @@ public class Sleeper {
                         continue;
             }
 
+            if (userInput.startsWith("delete")) {
+                int index = Integer.parseInt(userInput.substring(7)) -1;
+                Task removedTask = items.remove(index);
+                System.out.println("    ____________________________________________________________\n"
+                        + "    Noted. I've removed this task: \n"
+                        + "     " + removedTask + "\n"
+                        + "    Now you have " + items.size() + " tasks in the list.\n"
+                        + "    ____________________________________________________________");
+                        continue;
+            }
+
             items.add(new Task(userInput)); 
 
             System.out.println("    ____________________________________________________________\n"
