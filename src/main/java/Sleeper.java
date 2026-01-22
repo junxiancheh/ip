@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Sleeper {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SleeperException {
 
         ArrayList<Task> items = new ArrayList<>();
 
@@ -20,17 +20,26 @@ public class Sleeper {
             if (userInput.equals("bye")) {
                 break;
             }
-
+            try {
             if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
                 String[] parts = userInput.trim().split("\\s+", 2); 
                 String command = parts[0];
                 String rest = (parts.length == 2) ? parts[1] : "";  
                 Task t = null;
                 if (command.equals("todo")) {
+                    if (rest.isEmpty()) {
+                        throw new SleeperException("OOPS!!! The description of a todo cannot be empty.");
+                    }
                     t = new ToDos(rest);
                 } else if (command.equals("deadline")) {
+                    if (rest.isEmpty()) {
+                        throw new SleeperException("OOPS!!! The description of a deadline cannot be empty.");
+                    }
                     t = new Deadlines(rest);
                 } else if (command.equals("event")) {
+                    if (rest.isEmpty()) {
+                        throw new SleeperException("OOPS!!! The description of an event cannot be empty.");
+                    }
                     t = new Events(rest);
                 }
                 items.add(t);
@@ -78,7 +87,13 @@ public class Sleeper {
             System.out.println("    ____________________________________________________________\n"
                     + "    added: " + userInput + "\n"
                     + "    ____________________________________________________________");
-        }
+        } catch (SleeperException e) {
+            System.out.println("    ____________________________________________________________\n"
+                    + "    " + e.getMessage() + "\n"
+                    + "    ____________________________________________________________");
+        } 
+    }
+
         System.out.println("    ____________________________________________________________\n"
                 + "    Bye. Hope to see you again soon!\n"
                 + "    ____________________________________________________________");
