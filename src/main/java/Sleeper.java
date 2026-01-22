@@ -21,6 +21,27 @@ public class Sleeper {
                 break;
             }
 
+            if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
+                String[] parts = userInput.trim().split("\\s+", 2); 
+                String command = parts[0];
+                String rest = (parts.length == 2) ? parts[1] : "";  
+                Task t = null;
+                if (command.equals("todo")) {
+                    t = new ToDos(rest);
+                } else if (command.equals("deadline")) {
+                    t = new Deadlines(rest);
+                } else if (command.equals("event")) {
+                    t = new Events(rest);
+                }
+                items.add(t);
+                System.out.println("    ____________________________________________________________\n"
+                        + "    Got it. I've added this task: \n"
+                        + "    " + t + "\n"
+                        + "    Now you have " + items.size() + " tasks in the list.\n"
+                        + "    ____________________________________________________________");
+                continue;
+            }
+
             if (userInput.equals("list")) {
                 System.out.println("    ____________________________________________________________\n");
                 for (int i = 0; i < items.size(); i++) {
