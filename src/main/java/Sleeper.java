@@ -1,11 +1,12 @@
-import java.util.*;
-import java.io.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Sleeper {
-    public static void main(String[] args) throws SleeperException {
-
+    public static void main(String[] args) throws SleeperException, IOException {
+        
         ArrayList<Task> items = new ArrayList<>();
-
+        items = Storage.loadTasks();
         System.out.println("    ____________________________________________________________\n"
                 + "    Hello! I'm Sleeper\n"
                 + "    What can I do for you?\n"
@@ -43,6 +44,7 @@ public class Sleeper {
                     t = new Events(rest);
                 }
                 items.add(t);
+                Storage.saveTasks(items);
                 System.out.println("    ____________________________________________________________\n"
                         + "    Got it. I've added this task: \n"
                         + "    " + t + "\n"
@@ -63,6 +65,7 @@ public class Sleeper {
             if (userInput.startsWith("mark ")) {
                 int index = Integer.parseInt(userInput.substring(5)) - 1;
                 items.get(index).markAsDone();
+                Storage.saveTasks(items);
 
                 System.out.println("    ____________________________________________________________\n"
                         + "    Nice! I've marked this task as done: \n"
@@ -74,6 +77,7 @@ public class Sleeper {
             if (userInput.startsWith("unmark ")) {
                 int index = Integer.parseInt(userInput.substring(7)) - 1;
                 items.get(index).markAsNotDone();
+                Storage.saveTasks(items);
 
                 System.out.println("    ____________________________________________________________\n"
                         + "    OK, I've marked this task as not done yet: \n"
@@ -85,6 +89,7 @@ public class Sleeper {
             if (userInput.startsWith("delete")) {
                 int index = Integer.parseInt(userInput.substring(7)) -1;
                 Task removedTask = items.remove(index);
+                Storage.saveTasks(items);
                 System.out.println("    ____________________________________________________________\n"
                         + "    Noted. I've removed this task: \n"
                         + "     " + removedTask + "\n"
@@ -93,7 +98,8 @@ public class Sleeper {
                         continue;
             }
 
-            items.add(new Task(userInput)); 
+            items.add(new Task(userInput));
+            Storage.saveTasks(items);
 
             System.out.println("    ____________________________________________________________\n"
                     + "    added: " + userInput + "\n"
