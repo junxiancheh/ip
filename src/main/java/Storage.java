@@ -27,7 +27,15 @@ public class Storage {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            tasks.add(new Task(line));
+
+            if (line.startsWith("[ ]") || line.startsWith("[X]")) {
+                int firstBracket = line.indexOf("]");
+                if (firstBracket != -1) {
+                    String taskDetails = line.substring(firstBracket + 1).trim();
+                    line = taskDetails;
+                }
+                tasks.add(new Task(line));
+            }
         }
         scanner.close();
         return tasks;
