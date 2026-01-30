@@ -9,7 +9,7 @@ public class Storage {
     public static final String FILE_PATH = "./bin/sleeper.txt";
 
     // Method to save tasks to a file
-    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(FILE_PATH);
         for (Task task : tasks) {
             writer.write(task.toString() + "\n");
@@ -18,7 +18,7 @@ public class Storage {
     }
 
     // Method to load tasks from a file
-    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
+    public ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
         if (!file.exists()) {
