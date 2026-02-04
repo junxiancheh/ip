@@ -1,4 +1,5 @@
 package sleeper.storage;
+import sleeper.task.Task;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;

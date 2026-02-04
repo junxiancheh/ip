@@ -1,4 +1,5 @@
 package sleeper.ui;
+import sleeper.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
