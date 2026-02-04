@@ -96,6 +96,17 @@ public class Sleeper {
                 ui.showDeleteTaskMessage(removedTask, tasks);
                 break;
 
+            case "find":
+                String keyword = input.substring(5).trim();
+                ArrayList<Task> foundTasks = new ArrayList<>();
+                for (Task task : tasks) {
+                    if (task.getDescription().contains(keyword)) {
+                        foundTasks.add(task);
+                    }
+                }
+                ui.showFoundTasks(foundTasks, keyword);
+                break;
+
             default:
                 tasks.add(new Task(input));
                 storage.saveTasks(tasks);

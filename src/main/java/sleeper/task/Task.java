@@ -42,6 +42,15 @@ public class Task {
     }
 
     /**
+     * Returns the description of the task.
+     * 
+     * @return the description of the task
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Returns a string representation of the task.
      * 
      * @return the string representation of the task
