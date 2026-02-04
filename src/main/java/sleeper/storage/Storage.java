@@ -7,11 +7,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles saving and loading tasks to and from a file.
+ */
 public class Storage {
     public static final String FILE_PATH = "./bin/sleeper.txt";
 
-    // Method to save tasks to a file
-    public void saveTasks(ArrayList<Task> tasks) throws IOException {
+    /**
+     * Saves the list of tasks to a file.
+     * 
+     * This method writes each task's string representation to the specified file,
+     * with each task on a new line.
+     * 
+     * @param tasks
+     * @throws IOException
+     */
+    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(FILE_PATH);
         for (Task task : tasks) {
             writer.write(task.toString() + "\n");
@@ -19,8 +30,16 @@ public class Storage {
         writer.close();
     }
 
-    // Method to load tasks from a file
-    public ArrayList<Task> loadTasks() throws FileNotFoundException {
+    /**
+     * Loads the list of tasks from a file.
+     * 
+     * This method reads each line from the specified file and loads the tasks.
+     * If the file does not exist, it returns an empty list.
+     * 
+     * @return
+     * @throws FileNotFoundException
+     */
+    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
         if (!file.exists()) {

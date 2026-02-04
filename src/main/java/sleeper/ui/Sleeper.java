@@ -7,6 +7,11 @@ import sleeper.task.ToDos;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The main class for the Sleeper application.
+ * It handles user input, manages tasks and handles the storage of tasks.
+ * This is the entry point of the application.
+ */
 public class Sleeper {
     private Ui ui;
     private Storage storage;

@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an Event task with a description, start time, and end time.
+ * Extends the Task class.
+ */
 public class Events extends Task {
     private LocalDate startTime;
     private LocalDate endTime;
@@ -12,6 +16,18 @@ public class Events extends Task {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Constructor for Event tasks.
+     *
+     * This constructor takes a description string which includes the task description
+     * and the start and end time separated by " /from" and " /to". It parses the start
+     * and end time into LocalDateTime objects.
+     *
+     * @param description The description of the event task including the start and end time.
+     * @throws SleeperException if the date and time format is incorrect.
+     * @throws DateTimeParseException if the date and time format is incorrect.
+     * @returns Events object
+     */
     public Events(String description) throws SleeperException {
         super("");
         String[] parts = description.split(" /from", 2);
@@ -28,6 +44,11 @@ public class Events extends Task {
         }
     }
 
+    /**
+     * Returns the string representation of the Event task.
+     *
+     * @return A string representing the Event task in the format "[E] Task description (from: MMM dd yyyy to: MMM dd yyyy)".
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from:" + startTime.format(OUTPUT_FORMAT) + " to:" + endTime.format(OUTPUT_FORMAT) + ")";
