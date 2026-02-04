@@ -1,3 +1,5 @@
+package sleeper.parser;
+
 public class Parser {
     
     public static String parseCommandType(String userInput) {
