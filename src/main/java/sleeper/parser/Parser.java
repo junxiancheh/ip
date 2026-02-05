@@ -26,6 +26,10 @@ public class Parser {
             return "bye";
         } else if (userInput.startsWith("find ")) {
             return "find";
+        } else if (userInput.trim().isEmpty()) {
+            return "empty";
+        } else if (userInput.startsWith("clear")) {
+            return "clear";
         } else {
             return "default";
         }
