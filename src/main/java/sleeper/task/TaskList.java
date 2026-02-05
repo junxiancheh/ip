@@ -32,4 +32,8 @@ public class TaskList {
     public void unmarkTask(int index) {
         tasks.get(index).markAsNotDone();
     }
+
+    public void clearTasks() {
+        tasks.clear();
+    }
 }

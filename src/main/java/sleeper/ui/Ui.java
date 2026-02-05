@@ -1,4 +1,5 @@
 package sleeper.ui;
+
 import sleeper.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,26 +18,36 @@ public class Ui {
 
     /**
      * Prints the welcome message when the application starts
+     * 
+     * @return The welcome message as a String
      */
-    public void printWelcomeMessage() {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Hello! I'm Sleeper\n"
-                + "    What can I do for you?\n"
-                + "    ____________________________________________________________\n");
+    public String printWelcomeMessage() {
+        return "Hello! I'm Sleeper\n" 
+                + "Here's a list of commands you can use:\n"
+                + "1. todo <description> - Adds a todo task\n"
+                + "2. event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm> - Adds an event task\n"
+                + "3. deadline <description> /by <d/M/yyyy HHmm> - Adds a deadline task\n"
+                + "4. mark <task number> - Marks a task as done\n"
+                + "5. unmark <task number> - Marks a task as not done\n"
+                + "6. delete <task number> - Deletes a task\n"
+                + "7. find <keyword> - Finds tasks containing the keyword\n"
+                + "8. list - Lists all tasks\n"
+                + "9. bye - Exits the application\n"
+                + "For non-command inputs, I will treat them as todo tasks by default and add them to the list.\n";
     }
 
     /**
      * Prints the goodbye message when the application ends
      * 
+     * @return The goodbye message as a String
      */
-    public void printGoodbyeMessage() {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Bye. Hope to see you again soon!\n"
-                + "    ____________________________________________________________\n");
+    public String printGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
-
+;
     /**
      * Reads a command from the user 
+     * 
      * @return The command input by the user as a String
      */
     public String readCommand() {
@@ -44,107 +55,112 @@ public class Ui {
     }
 
     /**
-     * Displays an error message to the user
-     * @param message
-     */
-    public void showError(String message) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    " + message + "\n"
-                + "    ___________________________________________________________\n");
-    }
-
-    /**
      * Displays a message when a task is added
+     * 
      * @param t The task that was added
      * @param items The current list of tasks
+     * @return Add task message as a String
      */
-    public void showAddTaskMessage(Task t, ArrayList<Task> items) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Got it. I've added this task: \n"
-                + "    " + t + "\n"
-                + "    Now you have " + items.size() + " tasks in the list.\n"
-                + "    ____________________________________________________________\n");
+    public String showAddTaskMessage(Task t, ArrayList<Task> items) {
+        return "Got it. I've added this task: \n"
+                + t + "\n"
+                + "Now you have " + items.size() + " tasks in the list.\n";
     }
+                   
 
     /**
      * Displays the list of tasks to the user
+     * 
      * @param items The current list of tasks
+     * @return The task list as a String
      */
-    public void showTaskList(ArrayList<Task> items) {
-        System.out.println("    ____________________________________________________________\n");
+    public String showTaskList(ArrayList<Task> items) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < items.size(); i++) {
-            System.out.println("    " + (i + 1) + ": " + items.get(i) + "\n");
+            sb.append("    " + (i + 1) + ": " + items.get(i) + "\n");
         }
-        System.out.println("    ____________________________________________________________\n");
+        return sb.toString();
     }
 
     /**
      * Displays a message when a task is marked as done
+     * 
      * @param t The task that was marked as done
+     * @return Mark task message as a String
      */
-    public void showMarkTaskMessage(Task t) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Nice! I've marked this task as done: \n"
-                + "    " + t + "\n"
-                + "    ____________________________________________________________\n");
+    public String showMarkTaskMessage(Task t) {
+        return "Nice! I've marked this task as done: \n"
+                + t;
     }
 
     /**
-     * Displays a message when a task is unmarked as not done
-     * @param t The task that was unmarked as not done
+     * Displays a message when a task is unmarked
+     * 
+     * @param t The task that was unmarked
+     * @return Unmark task message as a String
      */
-    public void showUnmarkTaskMessage(Task t) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    OK, I've marked this task as not done yet: \n"
-                + "    " + t + "\n"
-                + "    ____________________________________________________________\n");
+    public String showUnmarkTaskMessage(Task t) {
+        return "OK, I've marked this task as not done yet: \n"
+                + t;
     }
 
     /**
      * Displays a message when a task is deleted
+     * 
      * @param t The task that was deleted
      * @param items The current list of tasks
+     * @return Delete task message as a String
      */
-    public void showDeleteTaskMessage(Task t, ArrayList<Task> items) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Noted. I've removed this task: \n"
-                + "    " + t + "\n"
-                + "    Now you have " + items.size() + " tasks in the list.\n"
-                + "    ____________________________________________________________\n");
+    public String showDeleteTaskMessage(Task t, ArrayList<Task> items) {
+        return "Noted. I've removed this task: \n"
+                + t + "\n"
+                + "Now you have " + items.size() + " tasks in the list.";
     }
 
     /**
      * Displays an error message to the user
+     * 
      * @param message The error message to be displayed
+     * @return Error message as a String
      */
-    public void showErrorMessage(String message) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    " + message + "\n"
-                + "    ____________________________________________________________\n");
+    public String showErrorMessage(String message) {
+        return message;
     }
 
     /**
      * Displays a normal message to the user
+     * 
      * @param message The message to be displayed
+     * @return Normal message as a String
      */
-    public void showNormalMessage(String message) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    added: " + message + "\n"
-                + "    ____________________________________________________________\n");
+    public String showNormalMessage(String message) {
+        return "I added: " + message + "\n";
     }
 
-    
-    public void showFoundTasks(ArrayList<Task> tasks, String keyword) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Here are the matching tasks in your list:\n");
+
+    /**
+     * Displays the tasks that match the search keyword
+     * 
+     * @param tasks
+     * @param keyword
+     * @return Found tasks message as a String
+     */
+    public String showFoundTasks(ArrayList<Task> tasks, String keyword) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:\n");
         int count = 1;
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                System.out.println("    " + count + ": " + task + "\n");
+                sb.append("    " + count + ": " + task + "\n");
                 count++;
             }
         }
-        System.out.println("    ____________________________________________________________\n");
+        return sb.toString();
+    }
+
+    public String showClearListMessage() {
+        return "All tasks have been cleared from your list.";
     }
 
     public void close() {
