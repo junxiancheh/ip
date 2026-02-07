@@ -5,8 +5,23 @@ import sleeper.task.Events;
 import sleeper.task.Task;
 
 
+/**
+ * Parses user input commands.
+ * 
+ * It identifies the type of command by the user's input 
+ * and extracts the relevant details for each command type.
+ */
 public class Parser {
     
+    /**
+     * Parse each command type and return the command type as a string
+     * 
+     * This is used to identify which command the user has inputted and 
+     * classify it accordingly.
+     * 
+     * @param userInput
+     * @return String representing the command type
+     */
     public static String parseCommandType(String userInput) {
         if (userInput.startsWith("todo")) {
             return "todo";
@@ -36,9 +51,13 @@ public class Parser {
     }
 
     /**
-     * Methods to parse ToDo command
+     * Method to parse ToDo command
+     * 
+     * This method will extract the description of the ToDo task
+     * from the user input string.
+     * 
      * @param userInput
-     * @return
+     * @return String description
      * @throws SleeperException
      */
     public static String parseTodo(String userInput) throws SleeperException {
@@ -48,9 +67,13 @@ public class Parser {
     }
     
     /**
-     * Methods to parse Deadline command
+     * Method to parse Deadline command
+     * 
+     * This method will extract the description and deadline of the Deadline task
+     * from the user input string.
+     * 
      * @param userInput
-     * @return
+     * @return Task representing the deadline
      * @throws SleeperException
      */
     public static Task parseDeadline(String userInput) throws SleeperException {
@@ -60,9 +83,13 @@ public class Parser {
     }
     
     /**
-     * Methods to parse Event command
+     * Method to parse Event command
+     * 
+     * This method will extract the description and event time of the Event task
+     * from the user input string.
+     * 
      * @param userInput
-     * @return
+     * @return Task event
      * @throws SleeperException
      */
     public static Task parseEvent(String userInput) throws SleeperException {
@@ -72,9 +99,12 @@ public class Parser {
     }
 
     /**
-     * Methods to parse Mark command
+     * Method to parse Mark command
+     * 
+     * This method will return the index of the task to be marked as done.
+     * 
      * @param userInput
-     * @return
+     * @return int index
      */
     public static int parseMarkIndex(String userInput) {
         assert userInput.startsWith("mark ") : "Input should start with 'mark '";
@@ -82,9 +112,12 @@ public class Parser {
     }
 
     /**
-     * Methods to parse Unmark command
+     * Method to parse Unmark command
+     * 
+     * This method will return the index of the task to be marked as not done.
+     * 
      * @param userInput
-     * @return
+     * @return int index
      */
     public static int parseUnmarkIndex(String userInput) {
         assert userInput.startsWith("unmark ") : "Input should start with 'unmark '";
@@ -92,9 +125,12 @@ public class Parser {
     }
     
     /**
-     * Methods to parse Delete command
+     * Method to parse Delete command
+     * 
+     * This method will return the index of the task to be deleted.
+     * 
      * @param userInput
-     * @return
+     * @return int index
      */
     public static int parseDeleteIndex(String userInput) {
         assert userInput.startsWith("delete ") : "Input should start with 'delete '";
@@ -102,9 +138,12 @@ public class Parser {
     }
 
     /**
-     * Methods to parse Find command
+     * Method to parse Find command
+     * 
+     * This method will return the keyword to search for in the task list.
+     * 
      * @param userInput
-     * @return
+     * @return String keyword
      */
     public static String parseFindKeyword(String userInput) {
         assert userInput.startsWith("find ") : "Input should start with 'find '";
