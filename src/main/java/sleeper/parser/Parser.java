@@ -42,6 +42,7 @@ public class Parser {
      * @throws SleeperException
      */
     public static String parseTodo(String userInput) throws SleeperException {
+        assert userInput.startsWith("todo") : "Input should start with 'todo'";
         String rest = userInput.substring(5).trim();
         return rest;
     }
@@ -53,6 +54,7 @@ public class Parser {
      * @throws SleeperException
      */
     public static Task parseDeadline(String userInput) throws SleeperException {
+        assert userInput.startsWith("deadline") : "Input should start with 'deadline'";
         String rest = userInput.substring(9).trim();
         return new Deadlines(rest);
     }
@@ -64,6 +66,7 @@ public class Parser {
      * @throws SleeperException
      */
     public static Task parseEvent(String userInput) throws SleeperException {
+        assert userInput.startsWith("event") : "Input should start with 'event'";
         String rest = userInput.substring(6).trim();
         return new Events(rest);
     }
@@ -74,15 +77,17 @@ public class Parser {
      * @return
      */
     public static int parseMarkIndex(String userInput) {
+        assert userInput.startsWith("mark ") : "Input should start with 'mark '";
         return Integer.parseInt(userInput.substring(5)) - 1;
     }
-    
+
     /**
      * Methods to parse Unmark command
      * @param userInput
      * @return
      */
     public static int parseUnmarkIndex(String userInput) {
+        assert userInput.startsWith("unmark ") : "Input should start with 'unmark '";
         return Integer.parseInt(userInput.substring(7)) - 1;
     }
     
@@ -92,6 +97,7 @@ public class Parser {
      * @return
      */
     public static int parseDeleteIndex(String userInput) {
+        assert userInput.startsWith("delete ") : "Input should start with 'delete '";
         return Integer.parseInt(userInput.substring(7)) - 1;
     }
 
@@ -101,6 +107,7 @@ public class Parser {
      * @return
      */
     public static String parseFindKeyword(String userInput) {
+        assert userInput.startsWith("find ") : "Input should start with 'find '";
         return userInput.substring(5).trim();
     }
 }
