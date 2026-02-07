@@ -10,14 +10,17 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 
     public Task deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.remove(index);
     }
 
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.get(index);
     }
 
@@ -26,10 +29,12 @@ public class TaskList {
     }
 
     public void markTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";  
         tasks.get(index).markAsDone();
     }
 
     public void unmarkTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         tasks.get(index).markAsNotDone();
     }
 

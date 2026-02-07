@@ -23,6 +23,7 @@ public class Storage {
      * @throws IOException
      */
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        assert tasks != null : "Tasks list cannot be null";
         FileWriter writer = new FileWriter(FILE_PATH);
         for (Task task : tasks) {
             writer.write(task.toString() + "\n");
