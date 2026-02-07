@@ -126,7 +126,57 @@ public class Sleeper {
                 tasks.clear();
                 storage.saveTasks(tasks);
                 return ui.showClearListMessage();
-        
+
+            case "edit":
+                String[] parts = input.split(" ", 3);
+
+                if (parts.length < 3) {
+                    throw new SleeperException(
+                            "The format of the command seems to be wrong. Try edit 1 todo read book");
+                }
+
+                // Extract the task index
+                int editIndex = Integer.parseInt(parts[1]) - 1;
+
+                if (editIndex < 0 || editIndex >= tasks.size()) {
+                    throw new SleeperException("Can't find task. Please provide a valid");
+                }
+
+                // Extract the description after task index. Can be a command or non command.
+                String inputDescription = parts[2];
+                String newType = Parser.parseCommandType(inputDescription);
+
+                Task taskToEdit = tasks.get(editIndex);
+
+                // If user typed a command, replace the task.
+                if (newType.equals("todo") || newType.equals("deadline") || newType.equals("event")) {
+                    
+                    Task newTask;
+                    
+                    switch (newType) {
+                        case "todo":
+                            newTask = new ToDos(Parser.parseTodo(inputDescription));
+                            break;
+                        case "deadline":
+                            newTask = Parser.parseDeadline(inputDescription);
+                            break;
+                        case "event":
+                            newTask = Parser.parseEvent(inputDescription);
+                            break;
+                        default:
+                            throw new SleeperException("Invalid task type.");
+                    }
+                    tasks.set(editIndex, newTask);
+                    storage.saveTasks(tasks);
+
+                } else {
+                    // If no command is typed, just put in user's input in that index
+                    taskToEdit.setDescription(inputDescription);
+                }
+
+                storage.saveTasks(tasks);
+                return ui.showEditTaskMessage(taskToEdit, tasks);
+
             default:
                 Task defaultTask = new Task(input);
                 tasks.add(defaultTask);

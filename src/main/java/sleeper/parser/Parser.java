@@ -1,8 +1,13 @@
 package sleeper.parser;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import sleeper.exception.SleeperException;
 import sleeper.task.Deadlines;
 import sleeper.task.Event;
 import sleeper.task.Task;
+import sleeper.task.ToDos;
+
 
 
 /**
@@ -45,6 +50,8 @@ public class Parser {
             return "empty";
         } else if (userInput.startsWith("clear")) {
             return "clear";
+        } else if (userInput.startsWith("edit")) {
+            return "edit";
         } else {
             return "default";
         }
@@ -148,5 +155,23 @@ public class Parser {
     public static String parseFindKeyword(String userInput) {
         assert userInput.startsWith("find ") : "Input should start with 'find '";
         return userInput.substring(5).trim();
+    }
+
+    /**
+     * Method to parse Edit command
+     * 
+     * This method will return the index of the 
+     * @param userInput
+     * @return
+     */
+    public static Integer parseEditIndex(String userInput) {
+        assert userInput.startsWith("edit ") : "Input should start with 'edit '";
+        String[] parts = userInput.split(" ");
+        
+        if (parts.length < 2) { 
+             throw new NumberFormatException("Missing index");
+        }
+
+        return Integer.parseInt(parts[1]) - 1;
     }
 }

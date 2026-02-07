@@ -11,11 +11,11 @@ import java.time.format.DateTimeParseException;
  * Extends the Task class.
  */
 public class Event extends Task {
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
 
     /**
      * Constructor for Event tasks.
@@ -47,9 +47,9 @@ public class Event extends Task {
 
         try {
             LocalDateTime fromDateTime = LocalDateTime.parse(secondSplit[0].trim(), INPUT_FORMAT);
-            this.startTime = fromDateTime.toLocalDate();
+            this.startTime = fromDateTime;
             LocalDateTime toDateTime = LocalDateTime.parse(secondSplit[1].trim(), INPUT_FORMAT);
-            this.endTime = toDateTime.toLocalDate();
+            this.endTime = toDateTime;
         } catch (DateTimeParseException e) {
             throw new SleeperException("The date and time format is incorrect. Please use 'd/M/yyyy HHmm' format.");
         } catch (ArrayIndexOutOfBoundsException e) {
