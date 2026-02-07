@@ -21,7 +21,8 @@ public class Sleeper {
         try {
             tasks = storage.loadTasks();
         } catch (IOException e) {
-
+            ui.showErrorMessage("Unable to load saved tasks. Starting a new task list instead.");
+            tasks = new ArrayList<>();
         }
     }
 
@@ -35,7 +36,7 @@ public class Sleeper {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Handles non-command responses. This does not save the response into the list.
      * 
      * @param input The user's input string.
      * @return The chatbot's response string.
@@ -57,6 +58,15 @@ public class Sleeper {
         }
     }
 
+    /**
+     * Handles command responses. This saves responses into the list.
+     * 
+     * @param input
+     * @param commandType
+     * @return String
+     * @throws SleeperException
+     * @throws IOException
+     */
     private String handleCommand(String input, String commandType) throws SleeperException, IOException {
         switch (commandType) {
             case "todo":

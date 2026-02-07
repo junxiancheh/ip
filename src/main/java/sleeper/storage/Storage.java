@@ -37,20 +37,25 @@ public class Storage {
      * This method reads each line from the specified file and loads the tasks.
      * If the file does not exist, it returns an empty list.
      * 
-     * @return
-     * @throws FileNotFoundException
+     * @return ArrayList<Task> containing the loaded tasks
+     * @throws FileNotFoundException if the file is not found
      */
     public static ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
+
         if (!file.exists()) {
             return tasks;
         }
+
         Scanner scanner = new Scanner(file);
+
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
+            
+            if (isValidTaskLine(line)) {
 
-            if (line.startsWith("[ ]") || line.startsWith("[X]")) {
+                // It extracts the task details after ']'
                 int firstBracket = line.indexOf("]");
                 if (firstBracket != -1) {
                     String taskDetails = line.substring(firstBracket + 1).trim();
@@ -61,5 +66,17 @@ public class Storage {
         }
         scanner.close();
         return tasks;
+    }
+
+    /**
+     * Checks if a line from the file is a valid task line.
+     * 
+     * A valid task line starts with either "[ ]" for incomplete tasks or "[X]" for completed tasks.
+     * 
+     * @param line the line to check
+     * @return true if the line is a valid task line, false otherwise
+     */
+    public static boolean isValidTaskLine(String line) {
+        return line.startsWith("[ ]") || line.startsWith("[X]");
     }
 }
