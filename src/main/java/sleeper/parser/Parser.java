@@ -1,7 +1,7 @@
 package sleeper.parser;
 import sleeper.exception.SleeperException;
 import sleeper.task.Deadlines;
-import sleeper.task.Events;
+import sleeper.task.Event;
 import sleeper.task.Task;
 
 
@@ -95,7 +95,7 @@ public class Parser {
     public static Task parseEvent(String userInput) throws SleeperException {
         assert userInput.startsWith("event") : "Input should start with 'event'";
         String rest = userInput.substring(6).trim();
-        return new Events(rest);
+        return new Event(rest);
     }
 
     /**
