@@ -37,6 +37,8 @@ public class Deadlines extends Task {
             this.endTime = LocalDateTime.parse(parts[1].trim(), INPUT_FORMAT);
         } catch (DateTimeParseException e) {
             throw new SleeperException("The date and time format is incorrect. Please use 'd/M/yyyy HH:mm' format.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SleeperException("Something went wrong! You might be missing a '/by' !");
         }
     }
 
