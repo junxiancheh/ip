@@ -14,8 +14,8 @@ public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/uuuu HHmm").withResolverStyle(ResolverStyle.STRICT);
-    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/uuuu HH:mm").withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/uuuu HH:mm");
 
     /**
      * Constructor for Event tasks.
@@ -69,6 +69,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + startTime.format(OUTPUT_FORMAT) + " to:" + endTime.format(OUTPUT_FORMAT) + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(OUTPUT_FORMAT) + " to: " + endTime.format(OUTPUT_FORMAT) + ")";
     }
 }
