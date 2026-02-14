@@ -29,4 +29,22 @@ public class DeadlinesTest {
             assertEquals("That date doesn't exist on the calendar.", e.getMessage());
         }
     }
+
+    @Test
+    public void testDeadline_missingByKeyword_exceptionThrown() {
+        try {
+            new Deadlines("return book 2/12/2019 1800");
+        } catch (SleeperException e) {
+            assertEquals("Something went wrong! You might be missing a '/by' !", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testDeadline_emptyDescription_exceptionThrown() {
+        try {
+            new Deadlines(" /by 2/12/2019 1800");
+        } catch (SleeperException e) {
+            assertEquals("The description of a deadline cannot be empty.", e.getMessage());
+        }
+    }
 }
