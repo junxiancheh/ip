@@ -104,6 +104,9 @@ public class Parser {
      */
     public static Task parseEvent(String userInput) throws SleeperException {
         assert userInput.startsWith("event") : "Input should start with 'event'";
+        if (!userInput.contains("/from") || !userInput.contains("/to")) {
+            throw new SleeperException("You're missing either the '/from' or '/to' !");
+        }
         String rest = userInput.substring(6).trim();
         return new Event(rest);
     }
@@ -115,10 +118,15 @@ public class Parser {
      * 
      * @param userInput
      * @return int index
+     * @exception SleeperException
      */
-    public static int parseMarkIndex(String userInput) {
+    public static int parseMarkIndex(String userInput) throws SleeperException {
         assert userInput.startsWith("mark ") : "Input should start with 'mark '";
-        return Integer.parseInt(userInput.substring(5)) - 1;
+        try {
+            return Integer.parseInt(userInput.substring(5)) - 1;
+        } catch (NumberFormatException e) {
+            throw new SleeperException("That's not a valid number.");
+        }
     }
 
     /**
@@ -128,10 +136,15 @@ public class Parser {
      * 
      * @param userInput
      * @return int index
+     * @exception SleeperException
      */
-    public static int parseUnmarkIndex(String userInput) {
+    public static int parseUnmarkIndex(String userInput) throws SleeperException{
         assert userInput.startsWith("unmark ") : "Input should start with 'unmark '";
-        return Integer.parseInt(userInput.substring(7)) - 1;
+        try {
+            return Integer.parseInt(userInput.substring(7)) - 1;
+        } catch (NumberFormatException e) {
+            throw new SleeperException("That's not a valid number.");
+        }
     }
     
     /**
@@ -141,10 +154,15 @@ public class Parser {
      * 
      * @param userInput
      * @return int index
+     * @exception SleeperException
      */
-    public static int parseDeleteIndex(String userInput) {
+    public static int parseDeleteIndex(String userInput) throws SleeperException{
         assert userInput.startsWith("delete ") : "Input should start with 'delete '";
-        return Integer.parseInt(userInput.substring(7)) - 1;
+        try {
+            return Integer.parseInt(userInput.substring(7)) - 1;
+        } catch (NumberFormatException e) {
+            throw new SleeperException("That's not a valid number.");
+        }
     }
 
     /**
@@ -166,8 +184,9 @@ public class Parser {
      * This method will return the index of the 
      * @param userInput
      * @return Integer index
+     * @exception SleeperException
      */
-    public static Integer parseEditIndex(String userInput) {
+    public static Integer parseEditIndex(String userInput) throws SleeperException{
         assert userInput.startsWith("edit ") : "Input should start with 'edit '";
         String[] parts = userInput.split(" ");
         
@@ -175,6 +194,10 @@ public class Parser {
              throw new NumberFormatException("Missing index");
         }
 
-        return Integer.parseInt(parts[1]) - 1;
+        try {
+            return Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new SleeperException("That's not a valid number.");
+        }
     }
 }

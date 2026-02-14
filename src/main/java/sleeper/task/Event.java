@@ -3,6 +3,7 @@ import sleeper.exception.SleeperException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Represents an Event task with a description, start time, and end time.
@@ -13,8 +14,8 @@ public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/uuuu HHmm").withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/uuuu HH:mm").withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Constructor for Event tasks.
@@ -49,6 +50,11 @@ public class Event extends Task {
             this.startTime = fromDateTime;
             LocalDateTime toDateTime = LocalDateTime.parse(secondSplit[1].trim(), INPUT_FORMAT);
             this.endTime = toDateTime;
+
+            if (toDateTime.isBefore(fromDateTime) || toDateTime.isEqual(fromDateTime)) {
+                throw new SleeperException("The end time must be after the start time!");
+            }
+
         } catch (DateTimeParseException e) {
             throw new SleeperException("The date and time format is incorrect. Please use 'd/M/yyyy HHmm' format.");
         } catch (ArrayIndexOutOfBoundsException e) {

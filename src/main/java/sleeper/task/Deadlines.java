@@ -13,7 +13,7 @@ public class Deadlines extends Task {
     private LocalDateTime endTime;
 
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
     
     /**
      * Constructor for Deadline tasks. 
@@ -36,14 +36,14 @@ public class Deadlines extends Task {
         try {
             this.endTime = LocalDateTime.parse(parts[1].trim(), INPUT_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new SleeperException("The date and time format is incorrect. Please use 'd/M/yyyy HHmm' format.");
+            throw new SleeperException("The date and time format is incorrect. Please use 'd/M/yyyy HH:mm' format.");
         }
     }
 
     /**
      * Returns the string representation of the Deadline task.
      * 
-     * @return A string representing the Deadline task in the format "[D] Task description (by: d/M/yyyy HHmm)".
+     * @return A string representing the Deadline task in the format "[D] Task description (by: d/M/yyyy HH:mm)".
      */
     @Override
     public String toString() {
