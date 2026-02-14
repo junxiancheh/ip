@@ -1,15 +1,23 @@
 package sleeper.parser;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import sleeper.exception.SleeperException;
 import sleeper.task.Deadlines;
 import sleeper.task.Event;
 import sleeper.task.Task;
+import sleeper.task.ToDos;
+
 
 
 /**
- * Parses user input commands.
+ * Parse user input commands.
  * 
  * It identifies the type of command by the user's input 
  * and extracts the relevant details for each command type.
+ * 
+ * @note Javadoc phrasing and documentation structure in this class 
+ * were refined with the assistance of AI (Gemini).
  */
 public class Parser {
     
@@ -45,13 +53,15 @@ public class Parser {
             return "empty";
         } else if (userInput.startsWith("clear")) {
             return "clear";
+        } else if (userInput.startsWith("edit")) {
+            return "edit";
         } else {
             return "default";
         }
     }
 
     /**
-     * Method to parse ToDo command
+     * Parse the ToDo command from the user input.
      * 
      * This method will extract the description of the ToDo task
      * from the user input string.
@@ -67,7 +77,7 @@ public class Parser {
     }
     
     /**
-     * Method to parse Deadline command
+     * Parse the Deadline command from user input.
      * 
      * This method will extract the description and deadline of the Deadline task
      * from the user input string.
@@ -83,7 +93,7 @@ public class Parser {
     }
     
     /**
-     * Method to parse Event command
+     * Parse the Event command from user input.
      * 
      * This method will extract the description and event time of the Event task
      * from the user input string.
@@ -94,51 +104,69 @@ public class Parser {
      */
     public static Task parseEvent(String userInput) throws SleeperException {
         assert userInput.startsWith("event") : "Input should start with 'event'";
+        if (!userInput.contains("/from") || !userInput.contains("/to")) {
+            throw new SleeperException("You're missing either the '/from' or '/to' !");
+        }
         String rest = userInput.substring(6).trim();
         return new Event(rest);
     }
 
     /**
-     * Method to parse Mark command
+     * Parse the Mark command from user input.
      * 
      * This method will return the index of the task to be marked as done.
      * 
      * @param userInput
      * @return int index
+     * @exception SleeperException
      */
-    public static int parseMarkIndex(String userInput) {
+    public static int parseMarkIndex(String userInput) throws SleeperException {
         assert userInput.startsWith("mark ") : "Input should start with 'mark '";
-        return Integer.parseInt(userInput.substring(5)) - 1;
+        try {
+            return Integer.parseInt(userInput.substring(5)) - 1;
+        } catch (NumberFormatException e) {
+            throw new SleeperException("That's not a valid number.");
+        }
     }
 
     /**
-     * Method to parse Unmark command
+     * Parse the Unmark command from user input.
      * 
      * This method will return the index of the task to be marked as not done.
      * 
      * @param userInput
      * @return int index
+     * @exception SleeperException
      */
-    public static int parseUnmarkIndex(String userInput) {
+    public static int parseUnmarkIndex(String userInput) throws SleeperException{
         assert userInput.startsWith("unmark ") : "Input should start with 'unmark '";
-        return Integer.parseInt(userInput.substring(7)) - 1;
+        try {
+            return Integer.parseInt(userInput.substring(7)) - 1;
+        } catch (NumberFormatException e) {
+            throw new SleeperException("That's not a valid number.");
+        }
     }
     
     /**
-     * Method to parse Delete command
+     * Parse the Event command from user input.
      * 
      * This method will return the index of the task to be deleted.
      * 
      * @param userInput
      * @return int index
+     * @exception SleeperException
      */
-    public static int parseDeleteIndex(String userInput) {
+    public static int parseDeleteIndex(String userInput) throws SleeperException{
         assert userInput.startsWith("delete ") : "Input should start with 'delete '";
-        return Integer.parseInt(userInput.substring(7)) - 1;
+        try {
+            return Integer.parseInt(userInput.substring(7)) - 1;
+        } catch (NumberFormatException e) {
+            throw new SleeperException("That's not a valid number.");
+        }
     }
 
     /**
-     * Method to parse Find command
+     * Parse the Find command from user input.
      * 
      * This method will return the keyword to search for in the task list.
      * 

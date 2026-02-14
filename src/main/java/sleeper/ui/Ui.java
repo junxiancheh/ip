@@ -22,7 +22,7 @@ public class Ui {
      * @return The welcome message as a String
      */
     public String printWelcomeMessage() {
-        return "Hello! I'm Sleeper\n" 
+        return "Ready to run the floor! What's the play for today?\n" 
                 + "Here's a list of commands you can use:\n"
                 + "1. todo <description> - Adds a todo task\n"
                 + "2. event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm> - Adds an event task\n"
@@ -32,6 +32,7 @@ public class Ui {
                 + "6. delete <task number> - Deletes a task\n"
                 + "7. find <keyword> - Finds tasks containing the keyword\n"
                 + "8. list - Lists all tasks\n"
+                + "9. edit <task number> <description>- Edit an existing task\n"
                 + "9. bye - Exits the application\n"
                 + "For non-command inputs, I will treat them as todo tasks by default and add them to the list.\n";
     }
@@ -42,7 +43,7 @@ public class Ui {
      * @return The goodbye message as a String
      */
     public String printGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon! 😴";
     }
 ;
     /**
@@ -62,9 +63,10 @@ public class Ui {
      * @return Add task message as a String
      */
     public String showAddTaskMessage(Task t, ArrayList<Task> items) {
-        return "Got it. I've added this task: \n"
+        return "Splash. Added that to the list. \n"
                 + t + "\n"
-                + "Now you have " + items.size() + " tasks in the list.\n";
+                + "Now you have " + items.size() + " tasks in the list.\n"
+                + "Night night. 😴";
     }
                    
 
@@ -80,6 +82,7 @@ public class Ui {
         for (int i = 0; i < items.size(); i++) {
             sb.append("    " + (i + 1) + ": " + items.get(i) + "\n");
         }
+        sb.append("Stay locked in.");
         return sb.toString();
     }
 
@@ -90,8 +93,9 @@ public class Ui {
      * @return Mark task message as a String
      */
     public String showMarkTaskMessage(Task t) {
-        return "Nice! I've marked this task as done: \n"
-                + t;
+        return "Splash! 🏀 I've marked this task as done: \n"
+                + "  " + t + "\n"
+                + "Night night!";
     }
 
     /**
@@ -101,7 +105,7 @@ public class Ui {
      * @return Unmark task message as a String
      */
     public String showUnmarkTaskMessage(Task t) {
-        return "OK, I've marked this task as not done yet: \n"
+        return "Timeout! I've marked this task as not done yet: \n"
                 + t;
     }
 
@@ -113,7 +117,7 @@ public class Ui {
      * @return Delete task message as a String
      */
     public String showDeleteTaskMessage(Task t, ArrayList<Task> items) {
-        return "Noted. I've removed this task: \n"
+        return "Ball game. 🏀 I've retired this task: \n"
                 + t + "\n"
                 + "Now you have " + items.size() + " tasks in the list.";
     }
@@ -125,7 +129,7 @@ public class Ui {
      * @return Error message as a String
      */
     public String showErrorMessage(String message) {
-        return message;
+        return "Airball! 💨" + message;
     }
 
     /**
@@ -135,7 +139,7 @@ public class Ui {
      * @return Normal message as a String
      */
     public String showNormalMessage(String message) {
-        return "I added: " + message + "\n";
+        return "Locking in your message! I added: " + message + "\n";
     }
 
 
@@ -160,7 +164,14 @@ public class Ui {
     }
 
     public String showClearListMessage() {
-        return "All tasks have been cleared from your list.";
+        return "All tasks have been cleared from your list. 🧹 \n"
+                + "Time to rest!";
+    }
+
+    public String showEditTaskMessage(Task newTask, ArrayList<Task> items) {
+        return "Great adjustments! I've edited and added this task: \n"
+                + newTask + "\n"
+                + "Now you have " + items.size() + " tasks in the list.\n";
     }
 
     public void close() {

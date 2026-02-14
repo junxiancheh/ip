@@ -6,7 +6,7 @@ import sleeper.task.Task;
 
 public class FindTest {
     @Test
-    public void testFindTasks() {
+    public void testFind_TasksPresent_success() {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Task("read book"));
         tasks.add(new Task("return book"));
@@ -17,7 +17,7 @@ public class FindTest {
     }
 
     @Test 
-    public void testFindNoTasks() {
+    public void testFind_NoTasks_success() {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Task("read book"));
         tasks.add(new Task("return book"));
