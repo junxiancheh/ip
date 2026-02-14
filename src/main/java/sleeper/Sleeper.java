@@ -3,6 +3,7 @@ package sleeper;
 import sleeper.exception.SleeperException;
 import sleeper.parser.Parser;
 import sleeper.storage.Storage;
+import sleeper.task.Edit;
 import sleeper.task.Task;
 import sleeper.task.ToDos;
 import sleeper.ui.Ui;
@@ -89,6 +90,9 @@ public class Sleeper {
                 return executeClear(input);
             case "edit":
                 return executeEdit(input);
+            default:
+                return executeDefault(input);
+        }
     }
 
     public String executeAddTodo(String input) throws SleeperException, IOException {
@@ -161,60 +165,11 @@ public class Sleeper {
         storage.saveTasks(tasks);
         return ui.showNormalMessage(input);
     }
-    
+
     public String executeEdit(String input) throws SleeperException, IOException {
-        String[] parts = input.split(" ", 3);
-
-            if (parts.length < 3) {
-                throw new SleeperException(
-                    "The format of the command seems to be wrong. Try edit 1 todo read book");
-                }
-
-                // Extract the task index
-            int editIndex = Integer.parseInt(parts[1]) - 1;
-
-            if (editIndex < 0 || editIndex >= tasks.size()) {
-                throw new SleeperException("Can't find task. Please provide a valid");
-                }
-
-                // Extract the description after task index. Can be a command or non command.
-            String inputDescription = parts[2];
-            String newType = Parser.parseCommandType(inputDescription);
-
-            Task taskToEdit = tasks.get(editIndex);
-
-            // If user typed a command, replace the task.
-            if (newType.equals("todo") || newType.equals("deadline") || newType.equals("event")) {
-                    
-                Task newTask;
-                    
-                switch (newType) {
-                    case "todo":
-                        newTask = new ToDos(Parser.parseTodo(inputDescription));
-                        break;
-                    case "deadline":
-                        newTask = Parser.parseDeadline(inputDescription);
-                        break;
-                    case "event":
-                        newTask = Parser.parseEvent(inputDescription);
-                        break;
-                    default:
-                        throw new SleeperException("Invalid task type.");
-                 }
-                 tasks.set(editIndex, newTask);
-                 storage.saveTasks(tasks);
-
-                 } else {
-                    // If no command is typed, just put in user's input in that index
-                    taskToEdit.setDescription(inputDescription);
-			}
-
-            storage.saveTasks(tasks);
-            return ui.showEditTaskMessage(taskToEdit, tasks);
-
-            default:
-                return executeDefault(input);
-        }
-
-
+        Edit editCommand = new Edit(input);
+        Task editedTask = editCommand.execute(tasks);
+        storage.saveTasks(tasks);
+        return ui.showEditTaskMessage(editedTask, tasks);
+    }
 }
