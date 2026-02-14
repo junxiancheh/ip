@@ -1,15 +1,23 @@
 package sleeper.parser;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import sleeper.exception.SleeperException;
 import sleeper.task.Deadlines;
 import sleeper.task.Event;
 import sleeper.task.Task;
+import sleeper.task.ToDos;
+
 
 
 /**
- * Parses user input commands.
+ * Parse user input commands.
  * 
  * It identifies the type of command by the user's input 
  * and extracts the relevant details for each command type.
+ * 
+ * @note Javadoc phrasing and documentation structure in this class 
+ * were refined with the assistance of AI (Gemini).
  */
 public class Parser {
     
@@ -45,13 +53,15 @@ public class Parser {
             return "empty";
         } else if (userInput.startsWith("clear")) {
             return "clear";
+        } else if (userInput.startsWith("edit")) {
+            return "edit";
         } else {
             return "default";
         }
     }
 
     /**
-     * Method to parse ToDo command
+     * Parse the ToDo command from the user input.
      * 
      * This method will extract the description of the ToDo task
      * from the user input string.
@@ -67,7 +77,7 @@ public class Parser {
     }
     
     /**
-     * Method to parse Deadline command
+     * Parse the Deadline command from user input.
      * 
      * This method will extract the description and deadline of the Deadline task
      * from the user input string.
@@ -83,7 +93,7 @@ public class Parser {
     }
     
     /**
-     * Method to parse Event command
+     * Parse the Event command from user input.
      * 
      * This method will extract the description and event time of the Event task
      * from the user input string.
@@ -99,7 +109,7 @@ public class Parser {
     }
 
     /**
-     * Method to parse Mark command
+     * Parse the Mark command from user input.
      * 
      * This method will return the index of the task to be marked as done.
      * 
@@ -112,7 +122,7 @@ public class Parser {
     }
 
     /**
-     * Method to parse Unmark command
+     * Parse the Unmark command from user input.
      * 
      * This method will return the index of the task to be marked as not done.
      * 
@@ -125,7 +135,7 @@ public class Parser {
     }
     
     /**
-     * Method to parse Delete command
+     * Parse the Event command from user input.
      * 
      * This method will return the index of the task to be deleted.
      * 
@@ -138,7 +148,7 @@ public class Parser {
     }
 
     /**
-     * Method to parse Find command
+     * Parse the Find command from user input.
      * 
      * This method will return the keyword to search for in the task list.
      * 
@@ -148,5 +158,23 @@ public class Parser {
     public static String parseFindKeyword(String userInput) {
         assert userInput.startsWith("find ") : "Input should start with 'find '";
         return userInput.substring(5).trim();
+    }
+
+    /**
+     * Parse the Edit command from user input.
+     * 
+     * This method will return the index of the 
+     * @param userInput
+     * @return Integer index
+     */
+    public static Integer parseEditIndex(String userInput) {
+        assert userInput.startsWith("edit ") : "Input should start with 'edit '";
+        String[] parts = userInput.split(" ");
+        
+        if (parts.length < 2) { 
+             throw new NumberFormatException("Missing index");
+        }
+
+        return Integer.parseInt(parts[1]) - 1;
     }
 }

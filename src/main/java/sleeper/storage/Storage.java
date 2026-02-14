@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 /**
  * The Storage class handles saving and loading tasks to and from a file.
+ * @note Javadoc phrasing and resource management structure refined with the assistance of AI.
  */
 public class Storage {
     public static final String FILE_PATH = "./bin/sleeper.txt";
@@ -39,8 +40,9 @@ public class Storage {
      * 
      * @return ArrayList<Task> containing the loaded tasks
      * @throws FileNotFoundException if the file is not found
+     * @return An ArrayList of tasks. Returns an empty list if the file is missing.
      */
-    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
+    public ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
 

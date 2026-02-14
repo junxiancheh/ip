@@ -32,6 +32,7 @@ public class Ui {
                 + "6. delete <task number> - Deletes a task\n"
                 + "7. find <keyword> - Finds tasks containing the keyword\n"
                 + "8. list - Lists all tasks\n"
+                + "9. edit <task number> <description>- Edit an existing task\n"
                 + "9. bye - Exits the application\n"
                 + "For non-command inputs, I will treat them as todo tasks by default and add them to the list.\n";
     }
@@ -161,6 +162,12 @@ public class Ui {
 
     public String showClearListMessage() {
         return "All tasks have been cleared from your list.";
+    }
+
+    public String showEditTaskMessage(Task newTask, ArrayList<Task> items) {
+        return "Got it. I've edited and added this task: \n"
+                + newTask + "\n"
+                + "Now you have " + items.size() + " tasks in the list.\n";
     }
 
     public void close() {
