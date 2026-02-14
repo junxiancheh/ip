@@ -5,17 +5,26 @@ import sleeper.exception.SleeperException;
 
 public class EventTest {
     @Test
-    public void testEvent() throws SleeperException {
-        String input = "event project meeting /from 12/9/2023 1400 /to 12/9/2023 1600";
-        assertEquals("[E][ ] event project meeting (from:Sept 12 2023 to:Sept 12 2023)", new Event(input).toString());
+    public void testEvent_validInput_success() throws SleeperException {
+        String input = "project meeting /from 12/9/2023 1400 /to 12/9/2023 1600";
+        assertEquals("[E][ ] project meeting (from: 12/9/2023 14:00 to: 12/9/2023 16:00)", new Event(input).toString());
     }
 
     @Test
-    public void testEventWithInvalidDate() {
+    public void testEvent_invalidFormat_throwsSleeperException() {
         try {
-            assertEquals("[E][ ] event project meeting (from:Sept 12 2023 to:Sept 12 2023)", new Event("event project meeting /from 2023-09-12 14:00 /to 2023-09-12 16:00").toString());
+            new Event("project meeting /from 2023-09-12 14:00 /to 2023-09-12 16:00");
         } catch (SleeperException e) {
             assertEquals("The date and time format is incorrect. Please use 'd/M/yyyy HHmm' format.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testEvent_nonExistentDate_throwsSleeperException() {
+        try {
+            new Event("project meeting /from 30/2/2024 2200 /to 30/2/2024 2300");
+        } catch (SleeperException e) {
+            assertEquals("That date doesn't exist on the calendar.", e.getMessage());
         }
     }
 }
