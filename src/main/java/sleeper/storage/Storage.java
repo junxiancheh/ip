@@ -1,4 +1,5 @@
 package sleeper.storage;
+
 import sleeper.task.Task;
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -9,7 +10,9 @@ import java.util.Scanner;
 
 /**
  * The Storage class handles saving and loading tasks to and from a file.
- * @note Javadoc phrasing and resource management structure refined with the assistance of AI.
+ * 
+ * @note Javadoc phrasing and resource management structure refined with the
+ *       assistance of AI.
  */
 public class Storage {
     public static final String FILE_PATH = "./bin/sleeper.txt";
@@ -24,6 +27,7 @@ public class Storage {
      * @throws IOException
      */
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        createNewFile();
         assert tasks != null : "Tasks list cannot be null";
         FileWriter writer = new FileWriter(FILE_PATH);
         for (Task task : tasks) {
@@ -54,7 +58,7 @@ public class Storage {
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            
+
             if (isValidTaskLine(line)) {
 
                 // It extracts the task details after ']'
@@ -73,12 +77,30 @@ public class Storage {
     /**
      * Checks if a line from the file is a valid task line.
      * 
-     * A valid task line starts with either "[ ]" for incomplete tasks or "[X]" for completed tasks.
+     * A valid task line starts with either "[ ]" for incomplete tasks or "[X]" for
+     * completed tasks.
      * 
      * @param line the line to check
      * @return true if the line is a valid task line, false otherwise
      */
     public static boolean isValidTaskLine(String line) {
         return line.startsWith("[ ]") || line.startsWith("[X]");
+    }
+
+    public static void createNewFile() {
+        File file = new File(FILE_PATH);
+        File parentDir = file.getParentFile();
+
+        try {
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.err.println("Could not initialize storage file: " + e.getMessage());
+        }
     }
 }

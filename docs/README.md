@@ -1,6 +1,6 @@
 # Sleeper User Guide
 
-<img src="https://junxiancheh.github.io/ip/images/Ui.png" width="600" alt="Sleeper GUI">
+<img src="https://junxiancheh.github.io/ip/Ui.png" width="600" alt="Sleeper GUI">
 
 Sleeper is a clutch task-management chatbot inspired by the deadly assassin's, Steph Curry's, famous "Night Night" celebration. Whether you're running the floor with a busy schedule or just trying to put your to-do list to bed, Sleeper has the handles to help you stay locked in.
 
@@ -10,6 +10,7 @@ Example: `todo <description>`
 
 Example: `todo practice free throws`
 
+**Expected Output**
 ```
 Splash. Added that to the list.
 [D][ ] practice free throws \n
@@ -24,6 +25,7 @@ Example: `deadline <description> /by <d/M/yyyy HHmm> \n`
 
 Example: `deadline submit CS2103T project /by 2/3/2026 2359`
 
+**Expected Output**
 ```
 Splash. Added that to the list.
 [D][ ] submit CS2103T project (by: 2/3/2026 23:59) \n
@@ -38,6 +40,7 @@ Example: `event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>>`
 
 Example: `event Hackathon /from 14/2/2026 0900 /to 15/2/2026 1800`
 
+**Expected Output**
 ```
 Splash. Added that to the list. 
 [E][ ] Hackathon (from: 14/2/2026 09:00 to: 15/2/2026 18:00)
@@ -50,6 +53,7 @@ Displays every tasks in your list.
 
 Example: `list`
 
+**Expected Output**
 ```
 Here are the tasks in your list:
     1: [T][ ] practice free throws
@@ -63,6 +67,7 @@ Clear every tasks in your list.
 
 Example: `clear`
 
+**Expected Output**
 ```
 All tasks have been cleared from your list. 🧹 
 Time to rest!
@@ -75,6 +80,7 @@ Example: `find <keyword>`
 
 Example: `find project`
 
+**Expected Output**
 ```
 Here are the matching tasks in your list:
     1: [D][ ] submit CS2103T project (by: 2/3/2026 23:59)
@@ -91,6 +97,7 @@ Example: `unmark <index>`
 
 Example: `unmark 2`
 
+**Expected Output**
 ```
 Splash! 🏀 I've marked this task as done: 
   [T][X] practice free throws
@@ -104,6 +111,7 @@ Example: `delete <index>`
 
 Example: `delete 1`
 
+**Expected Output**
 ```
 Ball game. 🏀 I've retired this task: 
 [T][ ] warm up drills
@@ -119,15 +127,31 @@ Example: `edit <index> <new_description>`
 1. Editing a To-Do
 Example: `edit 1 todo record highlights`
 
+**Expected Output**
+```
+"Great adjustments! I've edited and added this task:"
+[T][] record highlights
+Now you have 2 tasks in the list.
+```
+
 2. Editing a Deadline
 Example: `edit 2 deadline submit CS2103T project /by 2/3/2026 2359`
 
-3. Editing an Event
-Example: `event Hackathon /from 14/2/2026 0900 /to 15/2/2026 1800`
-
-
+**Expected Output**
 ```
-Ball game. 🏀 I've retired this task: 
-[T][ ] warm up drills
+"Great adjustments! I've edited and added this task:"
+[D][] submit CS2103T project /by 2/3/2026 23:59
 Now you have 2 tasks in the list.
 ```
+
+3. Editing an Event
+Example: `edit 2 event Hackathon /from 14/2/2026 0900 /to 15/2/2026 1800`
+
+**Expected Output**
+```
+"Great adjustments! I've edited and added this task:"
+[D][] event Hackathon /from 14/2/2026 09:00 /to 15/2/2026 18:00
+Now you have 2 tasks in the list.
+```
+
+
