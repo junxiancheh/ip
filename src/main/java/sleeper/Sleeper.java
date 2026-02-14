@@ -70,68 +70,97 @@ public class Sleeper {
     private String handleCommand(String input, String commandType) throws SleeperException, IOException {
         switch (commandType) {
             case "todo":
-                String todoDesc = Parser.parseTodo(input);
-                Task todo = new ToDos(todoDesc);
-                tasks.add(todo);
-                storage.saveTasks(tasks);
-                return ui.showAddTaskMessage(todo, tasks);
-
+                return executeAddTodo(input);
             case "deadline":
-                Task deadline = Parser.parseDeadline(input);
-                tasks.add(deadline);
-                storage.saveTasks(tasks);
-                return ui.showAddTaskMessage(deadline, tasks);
-
+                return executeAddDeadline(input);
             case "event":
-                Task event = Parser.parseEvent(input);
-                tasks.add(event);
-                storage.saveTasks(tasks);
-                return ui.showAddTaskMessage(event, tasks);
-
+                return executeAddEvent(input);
             case "list":
-                return ui.showTaskList(tasks);
-
+                return executeList();
             case "mark":
-                int markIndex = Parser.parseMarkIndex(input);
-                tasks.get(markIndex).markAsDone();
-                storage.saveTasks(tasks);
-                return ui.showMarkTaskMessage(tasks.get(markIndex));
-
+                return executeMark(input);
             case "unmark":
-                int unmarkIndex = Parser.parseUnmarkIndex(input);
-                tasks.get(unmarkIndex).markAsNotDone();
-                storage.saveTasks(tasks);
-                return ui.showUnmarkTaskMessage(tasks.get(unmarkIndex));
-
+                return executeUnmark(input);
             case "delete":
-                int deleteIndex = Parser.parseDeleteIndex(input);
-                Task removedTask = tasks.remove(deleteIndex);
-                storage.saveTasks(tasks);
-                return ui.showDeleteTaskMessage(removedTask, tasks);
-
+                return executeDelete(input);
             case "find":
-                String keyword = input.substring(5).trim();
-                ArrayList<Task> foundTasks = new ArrayList<>();
-                for (Task task : tasks) {
-                    if (task.getDescription().contains(keyword)) {
-                        foundTasks.add(task);
-                    }
-                }
-                return ui.showFoundTasks(foundTasks, keyword);
-
-            case "empty":
-                throw new SleeperException("The description of a command cannot be empty.");
-
+                return executeFind(input);
             case "clear":
-                tasks.clear();
-                storage.saveTasks(tasks);
-                return ui.showClearListMessage();
-        
+                return executeClear(input);
             default:
-                Task defaultTask = new Task(input);
-                tasks.add(defaultTask);
-                storage.saveTasks(tasks);
-                return ui.showNormalMessage(input);
+                return executeDefault(input);
         }
     }
+
+    public String executeAddTodo(String input) throws SleeperException, IOException {
+        String todoDesc = Parser.parseTodo(input);
+        Task todo = new ToDos(todoDesc);
+        tasks.add(todo);
+        storage.saveTasks(tasks);
+        return ui.showAddTaskMessage(todo, tasks);
+    }
+
+    public String executeAddDeadline(String input) throws SleeperException, IOException {
+        Task deadline = Parser.parseDeadline(input);
+        tasks.add(deadline);
+        storage.saveTasks(tasks);
+        return ui.showAddTaskMessage(deadline, tasks);
+    }
+
+    public String executeAddEvent(String input) throws SleeperException, IOException {
+        Task event = Parser.parseEvent(input);
+        tasks.add(event);
+        storage.saveTasks(tasks);
+        return ui.showAddTaskMessage(event, tasks);
+    }
+
+    public String executeList() {
+        return ui.showTaskList(tasks);
+    }
+
+    public String executeMark(String input) throws SleeperException, IOException {
+        int markIndex = Parser.parseMarkIndex(input);
+        tasks.get(markIndex).markAsDone();
+        storage.saveTasks(tasks);
+        return ui.showMarkTaskMessage(tasks.get(markIndex));
+    }
+
+    public String executeUnmark(String input) throws SleeperException, IOException {
+        int unmarkIndex = Parser.parseUnmarkIndex(input);
+        tasks.get(unmarkIndex).markAsNotDone();
+        storage.saveTasks(tasks);
+        return ui.showUnmarkTaskMessage(tasks.get(unmarkIndex));
+    }
+
+    public String executeDelete(String input) throws SleeperException, IOException {
+        int deleteIndex = Parser.parseDeleteIndex(input);
+        Task removedTask = tasks.remove(deleteIndex);
+        storage.saveTasks(tasks);
+        return ui.showDeleteTaskMessage(removedTask, tasks);
+    }
+
+    public String executeFind(String input) throws SleeperException, IOException {
+        String keyword = input.substring(5).trim();
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return ui.showFoundTasks(foundTasks, keyword);
+    }
+
+    public String executeClear(String input) throws SleeperException, IOException {
+        tasks.clear();
+        storage.saveTasks(tasks);
+        return ui.showClearListMessage();
+    }
+
+    public String executeDefault(String input) throws SleeperException, IOException {
+        Task defaultTask = new Task(input);
+        tasks.add(defaultTask);
+        storage.saveTasks(tasks);
+        return ui.showNormalMessage(input);
+    }
+
 }
