@@ -178,26 +178,5 @@ public class Parser {
         return userInput.substring(5).trim();
     }
 
-    /**
-     * Parse the Edit command from user input.
-     * 
-     * This method will return the index of the 
-     * @param userInput
-     * @return Integer index
-     * @exception SleeperException
-     */
-    public static Integer parseEditIndex(String userInput) throws SleeperException{
-        assert userInput.startsWith("edit ") : "Input should start with 'edit '";
-        String[] parts = userInput.split(" ");
-        
-        if (parts.length < 2) { 
-             throw new NumberFormatException("Missing index");
-        }
-
-        try {
-            return Integer.parseInt(parts[1]) - 1;
-        } catch (NumberFormatException e) {
-            throw new SleeperException("That's not a valid number.");
-        }
-    }
+    
 }

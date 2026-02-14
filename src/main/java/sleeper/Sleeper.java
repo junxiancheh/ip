@@ -70,118 +70,151 @@ public class Sleeper {
     private String handleCommand(String input, String commandType) throws SleeperException, IOException {
         switch (commandType) {
             case "todo":
-                String todoDesc = Parser.parseTodo(input);
-                Task todo = new ToDos(todoDesc);
-                tasks.add(todo);
-                storage.saveTasks(tasks);
-                return ui.showAddTaskMessage(todo, tasks);
-
+                return executeAddTodo(input);
             case "deadline":
-                Task deadline = Parser.parseDeadline(input);
-                tasks.add(deadline);
-                storage.saveTasks(tasks);
-                return ui.showAddTaskMessage(deadline, tasks);
-
+                return executeAddDeadline(input);
             case "event":
-                Task event = Parser.parseEvent(input);
-                tasks.add(event);
-                storage.saveTasks(tasks);
-                return ui.showAddTaskMessage(event, tasks);
-
+                return executeAddEvent(input);
             case "list":
-                return ui.showTaskList(tasks);
-
+                return executeList();
             case "mark":
-                int markIndex = Parser.parseMarkIndex(input);
-                tasks.get(markIndex).markAsDone();
-                storage.saveTasks(tasks);
-                return ui.showMarkTaskMessage(tasks.get(markIndex));
-
+                return executeMark(input);
             case "unmark":
-                int unmarkIndex = Parser.parseUnmarkIndex(input);
-                tasks.get(unmarkIndex).markAsNotDone();
-                storage.saveTasks(tasks);
-                return ui.showUnmarkTaskMessage(tasks.get(unmarkIndex));
-
+                return executeUnmark(input);
             case "delete":
-                int deleteIndex = Parser.parseDeleteIndex(input);
-                Task removedTask = tasks.remove(deleteIndex);
-                storage.saveTasks(tasks);
-                return ui.showDeleteTaskMessage(removedTask, tasks);
-
+                return executeDelete(input);
             case "find":
-                String keyword = input.substring(5).trim();
-                ArrayList<Task> foundTasks = new ArrayList<>();
-                for (Task task : tasks) {
-                    if (task.getDescription().contains(keyword)) {
-                        foundTasks.add(task);
-                    }
-                }
-                return ui.showFoundTasks(foundTasks, keyword);
-
-            case "empty":
-                throw new SleeperException("The description of a command cannot be empty.");
-
+                return executeFind(input);
             case "clear":
-                tasks.clear();
-                storage.saveTasks(tasks);
-                return ui.showClearListMessage();
-
+                return executeClear(input);
             case "edit":
-                String[] parts = input.split(" ", 3);
+                return executeEdit(input);
+    }
 
-                if (parts.length < 3) {
-                    throw new SleeperException(
-                            "The format of the command seems to be wrong. Try edit 1 todo read book");
+    public String executeAddTodo(String input) throws SleeperException, IOException {
+        String todoDesc = Parser.parseTodo(input);
+        Task todo = new ToDos(todoDesc);
+        tasks.add(todo);
+        storage.saveTasks(tasks);
+        return ui.showAddTaskMessage(todo, tasks);
+    }
+
+    public String executeAddDeadline(String input) throws SleeperException, IOException {
+        Task deadline = Parser.parseDeadline(input);
+        tasks.add(deadline);
+        storage.saveTasks(tasks);
+        return ui.showAddTaskMessage(deadline, tasks);
+    }
+
+    public String executeAddEvent(String input) throws SleeperException, IOException {
+        Task event = Parser.parseEvent(input);
+        tasks.add(event);
+        storage.saveTasks(tasks);
+        return ui.showAddTaskMessage(event, tasks);
+    }
+
+    public String executeList() {
+        return ui.showTaskList(tasks);
+    }
+
+    public String executeMark(String input) throws SleeperException, IOException {
+        int markIndex = Parser.parseMarkIndex(input);
+        tasks.get(markIndex).markAsDone();
+        storage.saveTasks(tasks);
+        return ui.showMarkTaskMessage(tasks.get(markIndex));
+    }
+
+    public String executeUnmark(String input) throws SleeperException, IOException {
+        int unmarkIndex = Parser.parseUnmarkIndex(input);
+        tasks.get(unmarkIndex).markAsNotDone();
+        storage.saveTasks(tasks);
+        return ui.showUnmarkTaskMessage(tasks.get(unmarkIndex));
+    }
+
+    public String executeDelete(String input) throws SleeperException, IOException {
+        int deleteIndex = Parser.parseDeleteIndex(input);
+        Task removedTask = tasks.remove(deleteIndex);
+        storage.saveTasks(tasks);
+        return ui.showDeleteTaskMessage(removedTask, tasks);
+    }
+
+    public String executeFind(String input) throws SleeperException, IOException {
+        String keyword = input.substring(5).trim();
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return ui.showFoundTasks(foundTasks, keyword);
+    }
+
+    public String executeClear(String input) throws SleeperException, IOException {
+        tasks.clear();
+        storage.saveTasks(tasks);
+        return ui.showClearListMessage();
+    }
+
+    public String executeDefault(String input) throws SleeperException, IOException {
+        Task defaultTask = new Task(input);
+        tasks.add(defaultTask);
+        storage.saveTasks(tasks);
+        return ui.showNormalMessage(input);
+    }
+    
+    public String executeEdit(String input) throws SleeperException, IOException {
+        String[] parts = input.split(" ", 3);
+
+            if (parts.length < 3) {
+                throw new SleeperException(
+                    "The format of the command seems to be wrong. Try edit 1 todo read book");
                 }
 
                 // Extract the task index
-                int editIndex = Integer.parseInt(parts[1]) - 1;
+            int editIndex = Integer.parseInt(parts[1]) - 1;
 
-                if (editIndex < 0 || editIndex >= tasks.size()) {
-                    throw new SleeperException("Can't find task. Please provide a valid");
+            if (editIndex < 0 || editIndex >= tasks.size()) {
+                throw new SleeperException("Can't find task. Please provide a valid");
                 }
 
                 // Extract the description after task index. Can be a command or non command.
-                String inputDescription = parts[2];
-                String newType = Parser.parseCommandType(inputDescription);
+            String inputDescription = parts[2];
+            String newType = Parser.parseCommandType(inputDescription);
 
-                Task taskToEdit = tasks.get(editIndex);
+            Task taskToEdit = tasks.get(editIndex);
 
-                // If user typed a command, replace the task.
-                if (newType.equals("todo") || newType.equals("deadline") || newType.equals("event")) {
+            // If user typed a command, replace the task.
+            if (newType.equals("todo") || newType.equals("deadline") || newType.equals("event")) {
                     
-                    Task newTask;
+                Task newTask;
                     
-                    switch (newType) {
-                        case "todo":
-                            newTask = new ToDos(Parser.parseTodo(inputDescription));
-                            break;
-                        case "deadline":
-                            newTask = Parser.parseDeadline(inputDescription);
-                            break;
-                        case "event":
-                            newTask = Parser.parseEvent(inputDescription);
-                            break;
-                        default:
-                            throw new SleeperException("Invalid task type.");
-                    }
-                    tasks.set(editIndex, newTask);
-                    storage.saveTasks(tasks);
+                switch (newType) {
+                    case "todo":
+                        newTask = new ToDos(Parser.parseTodo(inputDescription));
+                        break;
+                    case "deadline":
+                        newTask = Parser.parseDeadline(inputDescription);
+                        break;
+                    case "event":
+                        newTask = Parser.parseEvent(inputDescription);
+                        break;
+                    default:
+                        throw new SleeperException("Invalid task type.");
+                 }
+                 tasks.set(editIndex, newTask);
+                 storage.saveTasks(tasks);
 
-                } else {
+                 } else {
                     // If no command is typed, just put in user's input in that index
                     taskToEdit.setDescription(inputDescription);
-                }
+			}
 
-                storage.saveTasks(tasks);
-                return ui.showEditTaskMessage(taskToEdit, tasks);
+            storage.saveTasks(tasks);
+            return ui.showEditTaskMessage(taskToEdit, tasks);
 
             default:
-                Task defaultTask = new Task(input);
-                tasks.add(defaultTask);
-                storage.saveTasks(tasks);
-                return ui.showNormalMessage(input);
+                return executeDefault(input);
         }
-    }
+
+
 }
