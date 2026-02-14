@@ -27,4 +27,36 @@ public class EventTest {
             assertEquals("That date doesn't exist on the calendar.", e.getMessage());
         }
     }
+
+    @Test
+    public void testEvent_endTimeBeforeStartTime_throwsSleeperException() {
+        try {
+            new Event("project meeting /from 12/9/2023 1600 /to 12/9/2023 1400");
+        } catch (SleeperException e) {
+            assertEquals("The end time must be after the start time!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testEvent_missingToKeyword_throwsSleeperException() {
+        try {
+            new Event("project meeting /from 12/9/2023 1400");
+        } catch (SleeperException e) {
+            assertEquals(
+                    "The event seems to be incorrectly formatted. Please use the format: description /from 'd/M/yyyy HHmm' /to 'd/M/yyyy HHmm'",
+                    e.getMessage());
+        }
+    }
+
+    @Test
+    public void testEvent_missingFromKeyword_throwsSleeperException() {
+        try {
+            new Event("project meeting /to 12/9/2023 1600");
+        } catch (SleeperException e) {
+            assertEquals(
+                    "The event seems to be incorrectly formatted. Please use the format: description /from 'd/M/yyyy HHmm' /to 'd/M/yyyy HHmm'",
+                    e.getMessage());
+        }
+    }
+
 }
