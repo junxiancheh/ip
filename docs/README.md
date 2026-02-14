@@ -1,6 +1,6 @@
 # Sleeper User Guide
 
-<img src="https://junxiancheh.github.io/ip/images/SleeperGUI.png" width="600" alt="Sleeper GUI">
+<img src="https://junxiancheh.github.io/ip/images/Ui.png" width="600" alt="Sleeper GUI">
 
 Sleeper is a clutch task-management chatbot inspired by the deadly assassin's, Steph Curry's, famous "Night Night" celebration. Whether you're running the floor with a busy schedule or just trying to put your to-do list to bed, Sleeper has the handles to help you stay locked in.
 
