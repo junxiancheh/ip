@@ -50,12 +50,16 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db =  new DialogBox(text, img);
+        db.setAlignment(Pos.TOP_RIGHT);
+        db.dialog.getStyleClass().add("user-dialog");
+        return db;
     }
 
     public static DialogBox getSleeperDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db =  new DialogBox(text, img);
         db.flip();
+        db.dialog.getStyleClass().add("sleeper-dialog");
         return db;
     }
 }

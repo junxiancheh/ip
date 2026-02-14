@@ -1,0 +1,48 @@
+/**
+* This stylesheet implementation is refined using the assistance of AI (Gemini)
+**/
+
+.root {
+    -fx-background-color: #ffffff; 
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000;
+    -fx-padding: 8px; 
+}
+
+.text-field {
+    -fx-background-color: #e2e2e2;
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-prompt-text-fill: #808080;
+    -fx-background-radius: 5;
+}
+
+.button {
+    -fx-background-color: #2b5278;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+
+}
+
+.button:hover {
+    -fx-background-color: #4f82a9;
+}
+
+.user-dialog {
+    -fx-background-color: #2b5278; 
+    -fx-background-radius: 15 15 2 15;
+    -fx-padding: 10;
+    -fx-text-fill: white;
+}
+
+.sleeper-dialog {
+    -fx-background-color: #30ad7b; 
+    -fx-background-radius: 15 15 15 2;
+    -fx-padding: 10;
+    -fx-text-fill: #eff3f6;
+}
