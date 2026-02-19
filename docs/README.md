@@ -13,7 +13,7 @@ Example: `todo practice free throws`
 **Expected Output**
 ```
 Splash. Added that to the list.
-[D][ ] practice free throws
+[T][ ] practice free throws
 Now you have 2 tasks in the list.
 Night night. 😴
 ```
@@ -29,7 +29,7 @@ Example: `deadline submit CS2103T project /by 2/3/2026 2359`
 ```
 Splash. Added that to the list.
 [D][ ] submit CS2103T project (by: 2/3/2026 23:59)
-Now you have 2 tasks in the list.
+Now you have 2 tasks in the list
 Night night. 😴
 ```
 
@@ -154,4 +154,19 @@ Example: `edit 2 event Hackathon /from 14/2/2026 0900 /to 15/2/2026 1800`
 Now you have 2 tasks in the list.
 ```
 
+### Sleeper Command Summary
+
+| Command  | Format                 | Action                               |
+| :---     | :---                   | :---                                 |
+| **todo** | `todo <description>`   | Adds a task without a date.          |
+| **deadline** | `deadline <description> /by <d/M/yyyy HHmm>`| Adds a task with a due date.|
+| **event** | `event <description> /from <date> /to <date>`| Adds an event with a start and end time.|
+| **list** | `list`                 | Displays all current tasks.          |
+| **mark** | `mark <description>`| Marks the task at `index` as done.   |
+| **unmark** | `unmark [index]`| Unmarks the task at `index` as done.   |
+| **find** | `find <keyword>`  | Finds the list for a task matching the keyword   |
+| **delete** | `delete <index>` | Delete the task at `index`. |
+| **edit** | `edit <index> <description>`  | Updates an <index>'s task's details.  |
+| **clear** | `clear`  | Clears the entire list.  |
+| **bye** | `bye`  | Says goodbye to user.  |
 
