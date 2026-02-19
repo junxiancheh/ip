@@ -21,7 +21,7 @@ Night night. 😴
 ## Adding Deadlines
 Adds a task with a specific "shot clock" (deadline). This helps you keep track of exactly when a task needs to be put to sleep.
 
-Example: `deadline <description> /by <d/M/yyyy HHmm>`
+Example: `deadline <description> /by <dd/MM/yyyy HHmm>`
 
 Example: `deadline submit CS2103T project /by 2/3/2026 2359`
 
@@ -36,7 +36,7 @@ Night night. 😴
 ## Adding Events
 Perfect for scheduled games, meetings, or practice sessions that have a specific start and end time.
 
-Example: `event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>>`
+Example: `event <description> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>>`
 
 Example: `event Hackathon /from 14/2/2026 0900 /to 15/2/2026 1800`
 
@@ -159,7 +159,7 @@ Now you have 2 tasks in the list.
 | Command  | Format                 | Action                               |
 | :---     | :---                   | :---                                 |
 | **todo** | `todo <description>`   | Adds a task without a date.          |
-| **deadline** | `deadline <description> /by <d/M/yyyy HHmm>`| Adds a task with a due date.|
+| **deadline** | `deadline <description> /by <dd/MM/yyyy HHmm>`| Adds a task with a due date.|
 | **event** | `event <description> /from <date> /to <date>`| Adds an event with a start and end time.|
 | **list** | `list`                 | Displays all current tasks.          |
 | **mark** | `mark <index>`| Marks the task at `index` as done.   |
