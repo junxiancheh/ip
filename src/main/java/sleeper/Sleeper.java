@@ -21,7 +21,7 @@ public class Sleeper {
         storage = new Storage();
         try {
             tasks = storage.loadTasks();
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             ui.showErrorMessage("Unable to load saved tasks. Starting a new task list instead.");
             tasks = new ArrayList<>();
         }

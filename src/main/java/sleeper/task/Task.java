@@ -1,11 +1,14 @@
 package sleeper.task;
 
+import java.io.Serializable;
+
 /**
  * The Task class represents a task with a description and completion status.
  * 
  * It provides methods to mark the task as done or not done.
  */
-public class Task {
+public class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String description;
     protected boolean isDone;
 

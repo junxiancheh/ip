@@ -2,11 +2,13 @@ package sleeper.storage;
 
 import sleeper.task.Task;
 import java.util.ArrayList;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileOutputStream;
 
 /**
  * The Storage class handles saving and loading tasks to and from a file.
@@ -29,11 +31,9 @@ public class Storage {
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
         createNewFile();
         assert tasks != null : "Tasks list cannot be null";
-        FileWriter writer = new FileWriter(FILE_PATH);
-        for (Task task : tasks) {
-            writer.write(task.toString() + "\n");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+            oos.writeObject(tasks); // This saves the entire ArrayList at once!
         }
-        writer.close();
     }
 
     /**
@@ -46,32 +46,20 @@ public class Storage {
      * @throws FileNotFoundException if the file is not found
      * @return An ArrayList of tasks. Returns an empty list if the file is missing.
      */
-    public ArrayList<Task> loadTasks() throws FileNotFoundException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    @SuppressWarnings("unchecked")
+    public ArrayList<Task> loadTasks() throws IOException, ClassNotFoundException {
         File file = new File(FILE_PATH);
+        if (!file.exists())
+            return new ArrayList<>();
 
-        if (!file.exists()) {
-            return tasks;
-        }
-
-        Scanner scanner = new Scanner(file);
-
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-
-            if (isValidTaskLine(line)) {
-
-                // It extracts the task details after ']'
-                int firstBracket = line.indexOf("]");
-                if (firstBracket != -1) {
-                    String taskDetails = line.substring(firstBracket + 1).trim();
-                    line = taskDetails;
-                }
-                tasks.add(new Task(line));
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            Object obj = ois.readObject();
+            if (obj instanceof ArrayList<?>) {
+                return (ArrayList<Task>) obj;
+            } else {
+                throw new ClassNotFoundException("Data in file is not of correct type");
             }
         }
-        scanner.close();
-        return tasks;
     }
 
     /**
