@@ -13,23 +13,23 @@ Example: `todo practice free throws`
 **Expected Output**
 ```
 Splash. Added that to the list.
-[D][ ] practice free throws \n
-Now you have 2 tasks in the list. \n
+[D][ ] practice free throws
+Now you have 2 tasks in the list.
 Night night. 😴
 ```
 
 ## Adding Deadlines
 Adds a task with a specific "shot clock" (deadline). This helps you keep track of exactly when a task needs to be put to sleep.
 
-Example: `deadline <description> /by <d/M/yyyy HHmm> \n`
+Example: `deadline <description> /by <d/M/yyyy HHmm>`
 
 Example: `deadline submit CS2103T project /by 2/3/2026 2359`
 
 **Expected Output**
 ```
 Splash. Added that to the list.
-[D][ ] submit CS2103T project (by: 2/3/2026 23:59) \n
-Now you have 2 tasks in the list. \n
+[D][ ] submit CS2103T project (by: 2/3/2026 23:59)
+Now you have 2 tasks in the list.
 Night night. 😴
 ```
 
