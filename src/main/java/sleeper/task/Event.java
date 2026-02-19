@@ -59,10 +59,10 @@ public class Event extends Task {
             }
 
         } catch (DateTimeParseException e) {
-            throw new SleeperException("The date and time format is incorrect. Please use 'd/M/yyyy HHmm' format.");
+            throw new SleeperException("The date and time format is incorrect. Please use 'dd/MM/yyyy HHmm' format.");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SleeperException(
-                    "The event seems to be incorrectly formatted. Please use the format: description /from 'd/M/yyyy HHmm' /to 'd/M/yyyy HHmm'");
+                    "The event seems to be incorrectly formatted. Please use the format: description /from 'dd/MM/yyyy HHmm' /to 'dd/MM/yyyy HHmm'");
         }
     }
 
