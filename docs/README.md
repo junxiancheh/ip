@@ -162,8 +162,8 @@ Now you have 2 tasks in the list.
 | **deadline** | `deadline <description> /by <d/M/yyyy HHmm>`| Adds a task with a due date.|
 | **event** | `event <description> /from <date> /to <date>`| Adds an event with a start and end time.|
 | **list** | `list`                 | Displays all current tasks.          |
-| **mark** | `mark <description>`| Marks the task at `index` as done.   |
-| **unmark** | `unmark [index]`| Unmarks the task at `index` as done.   |
+| **mark** | `mark <index>`| Marks the task at `index` as done.   |
+| **unmark** | `unmark <index>`| Unmarks the task at `index`   |
 | **find** | `find <keyword>`  | Finds the list for a task matching the keyword   |
 | **delete** | `delete <index>` | Delete the task at `index`. |
 | **edit** | `edit <index> <description>`  | Updates an <index>'s task's details.  |
