@@ -91,7 +91,7 @@ public class Sleeper {
             case "edit":
                 return executeEdit(input);
             default:
-                return executeDefault(input);
+               throw new SleeperException("That's an airball! 🏀 I don't recognize that command.");
         }
     }
 
@@ -157,13 +157,6 @@ public class Sleeper {
         tasks.clear();
         storage.saveTasks(tasks);
         return ui.showClearListMessage();
-    }
-
-    public String executeDefault(String input) throws SleeperException, IOException {
-        Task defaultTask = new Task(input);
-        tasks.add(defaultTask);
-        storage.saveTasks(tasks);
-        return ui.showNormalMessage(input);
     }
 
     public String executeEdit(String input) throws SleeperException, IOException {

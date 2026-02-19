@@ -17,7 +17,7 @@ public class DeadlinesTest {
             assertEquals("[D][ ] deadline return book (by: 2/12/2019 1800)",
                     new Deadlines("deadline return book /by 2019-12-02 18:00").toString());
         } catch (SleeperException e) {
-            assertEquals("The date and time format is incorrect. Please use 'd/M/yyyy HH:mm' format.", e.getMessage());
+            assertEquals("The date and time format is incorrect. Please use 'dd/MM/yyyy HHmm' format.", e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class DeadlinesTest {
         try {
             new Deadlines("return book 2/12/2019 1800");
         } catch (SleeperException e) {
-            assertEquals("Something went wrong! You might be missing a '/by' !", e.getMessage());
+            assertEquals("Something went wrong! You might be using the wrong format! Please use 'dd/MM/yyyy HHmm' format!", e.getMessage());
         }
     }
 

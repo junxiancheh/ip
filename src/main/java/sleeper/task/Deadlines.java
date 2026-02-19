@@ -36,7 +36,7 @@ public class Deadlines extends Task {
         try {
             this.endTime = LocalDateTime.parse(parts[1].trim(), INPUT_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new SleeperException("The date and time format is incorrect. Please use 'd/M/yyyy HHmm' format.");
+            throw new SleeperException("The date and time format is incorrect. Please use 'dd/MM/yyyy HHmm' format.");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SleeperException("Something went wrong! You might be using the wrong format! Please use 'dd/MM/yyyy HHmm' format!");
         }

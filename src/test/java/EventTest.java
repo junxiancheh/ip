@@ -15,7 +15,7 @@ public class EventTest {
         try {
             new Event("project meeting /from 2023-09-12 14:00 /to 2023-09-12 16:00");
         } catch (SleeperException e) {
-            assertEquals("The date and time format is incorrect. Please use 'd/M/yyyy HHmm' format.", e.getMessage());
+            assertEquals("The date and time format is incorrect. Please use 'dd/MM/yyyy HHmm' format.", e.getMessage());
         }
     }
 
@@ -43,7 +43,7 @@ public class EventTest {
             new Event("project meeting /from 12/9/2023 1400");
         } catch (SleeperException e) {
             assertEquals(
-                    "The event seems to be incorrectly formatted. Please use the format: description /from 'd/M/yyyy HHmm' /to 'd/M/yyyy HHmm'",
+                    "The event seems to be incorrectly formatted. Please use the format: description /from 'dd/MM/yyyy HHmm' /to 'dd/MM/yyyy HHmm'",
                     e.getMessage());
         }
     }
@@ -54,7 +54,7 @@ public class EventTest {
             new Event("project meeting /to 12/9/2023 1600");
         } catch (SleeperException e) {
             assertEquals(
-                    "The event seems to be incorrectly formatted. Please use the format: description /from 'd/M/yyyy HHmm' /to 'd/M/yyyy HHmm'",
+                    "The event seems to be incorrectly formatted. Please use the format: description /from 'dd/MM/yyyy HHmm' /to 'dd/MM/yyyy HHmm'",
                     e.getMessage());
         }
     }
