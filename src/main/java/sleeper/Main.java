@@ -23,6 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("Sleeper Chatbot");
             stage.setScene(scene);
+            stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setSleeper(sleeper);  // inject the Sleeper instance
             stage.show();
         } catch (IOException e) {

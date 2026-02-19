@@ -1,4 +1,5 @@
 package sleeper.parser;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,23 +9,21 @@ import sleeper.task.Event;
 import sleeper.task.Task;
 import sleeper.task.ToDos;
 
-
-
 /**
  * Parse user input commands.
  * 
- * It identifies the type of command by the user's input 
+ * It identifies the type of command by the user's input
  * and extracts the relevant details for each command type.
  * 
- * @note Javadoc phrasing and documentation structure in this class 
- * were refined with the assistance of AI (Gemini).
+ * @note Javadoc phrasing and documentation structure in this class
+ *       were refined with the assistance of AI (Gemini).
  */
 public class Parser {
-    
+
     /**
      * Parse each command type and return the command type as a string
      * 
-     * This is used to identify which command the user has inputted and 
+     * This is used to identify which command the user has inputted and
      * classify it accordingly.
      * 
      * @param userInput
@@ -75,7 +74,7 @@ public class Parser {
         String rest = userInput.substring(5).trim();
         return rest;
     }
-    
+
     /**
      * Parse the Deadline command from user input.
      * 
@@ -91,7 +90,7 @@ public class Parser {
         String rest = userInput.substring(9).trim();
         return new Deadlines(rest);
     }
-    
+
     /**
      * Parse the Event command from user input.
      * 
@@ -120,10 +119,14 @@ public class Parser {
      * @return int index
      * @exception SleeperException
      */
-    public static int parseMarkIndex(String userInput) throws SleeperException {
+    public static int parseMarkIndex(String userInput, int listSize) throws SleeperException {
         assert userInput.startsWith("mark ") : "Input should start with 'mark '";
         try {
-            return Integer.parseInt(userInput.substring(5)) - 1;
+            int index = Integer.parseInt(userInput.substring(5)) - 1;
+            if (index < 0 || index >= listSize) {
+                throw new SleeperException("I can't find that task. You only have " + listSize + " tasks!");
+            }
+            return index;
         } catch (NumberFormatException e) {
             throw new SleeperException("That's not a valid number.");
         }
@@ -138,15 +141,20 @@ public class Parser {
      * @return int index
      * @exception SleeperException
      */
-    public static int parseUnmarkIndex(String userInput) throws SleeperException{
+    public static int parseUnmarkIndex(String userInput, int listSize) throws SleeperException {
         assert userInput.startsWith("unmark ") : "Input should start with 'unmark '";
         try {
-            return Integer.parseInt(userInput.substring(7)) - 1;
+            int index = Integer.parseInt(userInput.substring(7)) - 1;
+            if (index < 0 || index >= listSize) {
+                throw new SleeperException("I can't find that task. You only have " + listSize + " tasks!");
+            }
+
+            return index;
         } catch (NumberFormatException e) {
             throw new SleeperException("That's not a valid number.");
         }
     }
-    
+
     /**
      * Parse the Event command from user input.
      * 
@@ -156,7 +164,7 @@ public class Parser {
      * @return int index
      * @exception SleeperException
      */
-    public static int parseDeleteIndex(String userInput) throws SleeperException{
+    public static int parseDeleteIndex(String userInput) throws SleeperException {
         assert userInput.startsWith("delete ") : "Input should start with 'delete '";
         try {
             return Integer.parseInt(userInput.substring(7)) - 1;
@@ -178,5 +186,4 @@ public class Parser {
         return userInput.substring(5).trim();
     }
 
-    
 }
