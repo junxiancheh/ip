@@ -15,7 +15,7 @@ import java.util.Scanner;
  *       assistance of AI.
  */
 public class Storage {
-    public static final String FILE_PATH = "./bin/sleeper.txt";
+    public static final String FILE_PATH = "./sleeper.txt";
 
     /**
      * Saves the list of tasks to a file.
@@ -84,7 +84,7 @@ public class Storage {
      * @return true if the line is a valid task line, false otherwise
      */
     public static boolean isValidTaskLine(String line) {
-        return line.startsWith("[ ]") || line.startsWith("[X]");
+        return line.contains("[ ]") || line.contains("[X]");
     }
 
     public static void createNewFile() {

@@ -33,8 +33,7 @@ public class Ui {
                 + "7. find <keyword> - Finds tasks containing the keyword\n"
                 + "8. list - Lists all tasks\n"
                 + "9. edit <task number> <description>- Edit an existing task\n"
-                + "9. bye - Exits the application\n"
-                + "For non-command inputs, I will treat them as todo tasks by default and add them to the list.\n";
+                + "10. bye - Exits the application\n";
     }
 
     /**

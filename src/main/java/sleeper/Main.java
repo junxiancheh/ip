@@ -3,6 +3,7 @@ package sleeper;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +25,11 @@ public class Main extends Application {
             stage.setTitle("Sleeper Chatbot");
             stage.setScene(scene);
             stage.setResizable(false);
-            fxmlLoader.<MainWindow>getController().setSleeper(sleeper);  // inject the Sleeper instance
+            stage.setOnCloseRequest(event -> {
+                Platform.exit();
+                System.exit(0);
+            });
+            fxmlLoader.<MainWindow>getController().setSleeper(sleeper); // inject the Sleeper instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
