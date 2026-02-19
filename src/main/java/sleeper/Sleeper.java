@@ -122,14 +122,14 @@ public class Sleeper {
     }
 
     public String executeMark(String input) throws SleeperException, IOException {
-        int markIndex = Parser.parseMarkIndex(input);
+        int markIndex = Parser.parseMarkIndex(input, tasks.size());
         tasks.get(markIndex).markAsDone();
         storage.saveTasks(tasks);
         return ui.showMarkTaskMessage(tasks.get(markIndex));
     }
 
     public String executeUnmark(String input) throws SleeperException, IOException {
-        int unmarkIndex = Parser.parseUnmarkIndex(input);
+        int unmarkIndex = Parser.parseUnmarkIndex(input, tasks.size());
         tasks.get(unmarkIndex).markAsNotDone();
         storage.saveTasks(tasks);
         return ui.showUnmarkTaskMessage(tasks.get(unmarkIndex));
