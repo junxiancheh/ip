@@ -137,7 +137,7 @@ public class Sleeper {
     }
 
     public String executeDelete(String input) throws SleeperException, IOException {
-        int deleteIndex = Parser.parseDeleteIndex(input);
+        int deleteIndex = Parser.parseDeleteIndex(input, tasks.size());
         Task removedTask = tasks.remove(deleteIndex);
         storage.saveTasks(tasks);
         return ui.showDeleteTaskMessage(removedTask, tasks);

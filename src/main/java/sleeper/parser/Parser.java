@@ -172,10 +172,14 @@ public class Parser {
      * @return int index
      * @exception SleeperException
      */
-    public static int parseDeleteIndex(String userInput) throws SleeperException {
+    public static int parseDeleteIndex(String userInput, int listSize) throws SleeperException {
         assert userInput.startsWith("delete ") : "Input should start with 'delete '";
         try {
-            return Integer.parseInt(userInput.substring(7)) - 1;
+            int index = Integer.parseInt(userInput.substring(7)) - 1;
+            if (index < 0 || index >= listSize) {
+                throw new SleeperException("I can't find that task. You only have " + listSize + " tasks!");
+            }
+            return index;
         } catch (NumberFormatException e) {
             throw new SleeperException("That's not a valid number.");
         }
