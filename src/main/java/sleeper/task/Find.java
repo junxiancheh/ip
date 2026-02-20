@@ -16,7 +16,8 @@ public class Find {
     public static ArrayList<Task> findTasks(ArrayList<Task> tasks, String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            // Handle case sensitivity
+            if (task.getDescription().trim().toLowerCase().contains(keyword.trim().toLowerCase())) {
                 foundTasks.add(task);
             }
         }

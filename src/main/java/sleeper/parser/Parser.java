@@ -36,7 +36,7 @@ public class Parser {
             return "deadline";
         } else if (userInput.startsWith("event")) {
             return "event";
-        } else if (userInput.equals("list")) {
+        } else if (userInput.trim().equals("list")) {
             return "list";
         } else if (userInput.startsWith("mark ")) {
             return "mark";
@@ -44,13 +44,13 @@ public class Parser {
             return "unmark";
         } else if (userInput.startsWith("delete")) {
             return "delete";
-        } else if (userInput.equals("bye")) {
+        } else if (userInput.trim().equals("bye")) {
             return "bye";
-        } else if (userInput.startsWith("find ")) {
+        } else if (userInput.trim().startsWith("find ")) {
             return "find";
         } else if (userInput.trim().isEmpty()) {
             return "empty";
-        } else if (userInput.startsWith("clear")) {
+        } else if (userInput.trim().startsWith("clear")) {
             return "clear";
         } else if (userInput.startsWith("edit")) {
             return "edit";
@@ -71,8 +71,10 @@ public class Parser {
      */
     public static String parseTodo(String userInput) throws SleeperException {
         assert userInput.startsWith("todo") : "Input should start with 'todo'";
-        String rest = userInput.substring(5).trim();
-        return rest;
+        if (userInput.trim().equalsIgnoreCase("todo")) {
+            throw new SleeperException("The description of a todo cannot be empty!");
+        }
+        return userInput.substring(4).trim();
     }
 
     /**
@@ -87,7 +89,13 @@ public class Parser {
      */
     public static Task parseDeadline(String userInput) throws SleeperException {
         assert userInput.startsWith("deadline") : "Input should start with 'deadline'";
-        String rest = userInput.substring(9).trim();
+        if (userInput.trim().equalsIgnoreCase("deadline")) {
+            throw new SleeperException("The description of a deadline cannot be empty!");
+        }
+        String rest = userInput.substring(8).trim();
+        if (rest.isEmpty()) {
+            throw new SleeperException("The description of a deadline cannot be empty!");
+        }
         return new Deadlines(rest);
     }
 

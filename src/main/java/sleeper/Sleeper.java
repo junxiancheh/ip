@@ -4,6 +4,7 @@ import sleeper.exception.SleeperException;
 import sleeper.parser.Parser;
 import sleeper.storage.Storage;
 import sleeper.task.Edit;
+import sleeper.task.Find;
 import sleeper.task.Task;
 import sleeper.task.ToDos;
 import sleeper.ui.Ui;
@@ -91,7 +92,7 @@ public class Sleeper {
             case "edit":
                 return executeEdit(input);
             default:
-               throw new SleeperException("That's an airball! 🏀 I don't recognize that command.");
+                throw new SleeperException("That's an airball! 🏀 I don't recognize that command.");
         }
     }
 
@@ -144,11 +145,9 @@ public class Sleeper {
 
     public String executeFind(String input) throws SleeperException, IOException {
         String keyword = input.substring(5).trim();
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                foundTasks.add(task);
-            }
+        ArrayList<Task> foundTasks = Find.findTasks(this.tasks, keyword);
+        if (foundTasks.isEmpty()) {
+            return "Airball! I couldn't find any tasks matching '" + keyword + "'. Maybe try a different word?";
         }
         return ui.showFoundTasks(foundTasks, keyword);
     }
