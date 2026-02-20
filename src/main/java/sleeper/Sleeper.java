@@ -146,7 +146,7 @@ public class Sleeper {
         String keyword = input.substring(5).trim();
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 foundTasks.add(task);
             }
         }

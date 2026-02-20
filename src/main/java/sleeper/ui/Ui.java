@@ -154,7 +154,7 @@ public class Ui {
         sb.append("Here are the matching tasks in your list:\n");
         int count = 1;
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 sb.append("    " + count + ": " + task + "\n");
                 count++;
             }
