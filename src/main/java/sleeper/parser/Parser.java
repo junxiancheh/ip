@@ -36,7 +36,7 @@ public class Parser {
             return "deadline";
         } else if (userInput.startsWith("event")) {
             return "event";
-        } else if (userInput.equals("list")) {
+        } else if (userInput.trim().equals("list")) {
             return "list";
         } else if (userInput.startsWith("mark ")) {
             return "mark";
@@ -44,13 +44,13 @@ public class Parser {
             return "unmark";
         } else if (userInput.startsWith("delete")) {
             return "delete";
-        } else if (userInput.equals("bye")) {
+        } else if (userInput.trim().equals("bye")) {
             return "bye";
-        } else if (userInput.startsWith("find ")) {
+        } else if (userInput.trim().startsWith("find ")) {
             return "find";
         } else if (userInput.trim().isEmpty()) {
             return "empty";
-        } else if (userInput.startsWith("clear")) {
+        } else if (userInput.trim().startsWith("clear")) {
             return "clear";
         } else if (userInput.startsWith("edit")) {
             return "edit";
